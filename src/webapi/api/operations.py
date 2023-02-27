@@ -8,6 +8,7 @@ router = APIRouter(
 )
 
 
+# Просмотр всех записей
 @router.get('/', response_model=List[Contracts])
 def index(
         project: Optional[str] = None,
@@ -16,7 +17,8 @@ def index(
     return service.get_list(project=project)
 
 
-@router.get('/{project_id', response_model=Contracts)
+# Получение записи по id
+@router.get('/{project_id', response_model=Contracts)  # response_model - что возвращается
 def get_by_id(
         project_id: int,
         service: ReclService = Depends()
@@ -24,6 +26,7 @@ def get_by_id(
     return service.get_id(project_id)
 
 
+# создание новой записи
 @router.post('/', response_model=Contracts)
 def create(
         project_data: ContractsCreate,
@@ -32,6 +35,7 @@ def create(
     return service.create(project_data)
 
 
+# обновление записи
 @router.put('/{project_id}', response_model=Contracts)
 def update_project(
         project_id: int,
@@ -40,6 +44,8 @@ def update_project(
 ):
     return service.update(project_id, project_data)
 
+
+# удаление записи
 @router.delete('/{project_id}')
 def delete(
         project_id: int,
